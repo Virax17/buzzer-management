@@ -37,6 +37,16 @@
   // the surface in both themes): 1 = Open, 2 = Resolved on the /warnings card charts.
   --color-series-1: #2a78d6;
   --color-series-2: #eb6834;
+
+  // Revenue engine icon tiles (Overview): one hue per engine, decorative (the name says which).
+  --color-engine-1: #a66f00;
+  --color-engine-2: #7048e8;
+  --color-engine-3: #1c7ed6;
+  --color-engine-4: #d6336c;
+
+  // Brand yellow (logo, active nav tab) and the dark text on it, the same in both themes.
+  --color-brand: #ffb414;
+  --color-brand-contrast: #131515;
 }
 
 @mixin dark {
@@ -68,6 +78,12 @@
   --color-card-red: #ff4d4d;
   --color-series-1: #3987e5;
   --color-series-2: #d95926;
+  --color-engine-1: #ffb414;
+  --color-engine-2: #9775fa;
+  --color-engine-3: #4dabf7;
+  --color-engine-4: #f06595;
+  --color-brand: #ffb414;
+  --color-brand-contrast: #131515;
 }
 
 // Team map (Figma "Buzzer Website" → Q4 Team Map). Brand colors, identical in light and dark mode:

@@ -1,0 +1,77 @@
+<section aria-labelledby="happenings-title">
+  <header class="head">
+    <div>
+      <h2 id="happenings-title">
+        <app-icon class="head-icon" name="pulse" />
+        Issues &amp; Happenings
+      </h2>
+      <p class="muted">Key updates, missed targets, risks and actions from across the company</p>
+    </div>
+    <div class="tools">
+      <div class="tabs" role="tablist" aria-label="Filter by type">
+        @for (tab of tabs(); track tab.id; let i = $index) {
+          <button
+            type="button"
+            role="tab"
+            class="tab"
+            [id]="'happenings-tab-' + tab.id"
+            [attr.aria-selected]="active() === tab.id"
+            [attr.aria-controls]="'happenings-panel'"
+            [attr.tabindex]="active() === tab.id ? 0 : -1"
+            (click)="select(tab.id)"
+            (keydown)="onKeydown($event, i)"
+          >
+            {{ tab.label }} ({{ tab.count }})
+          </button>
+        }
+      </div>
+      <button type="button" class="link" (click)="expand.emit()">
+        View All <span aria-hidden="true">→</span>
+      </button>
+    </div>
+  </header>
+
+  <div id="happenings-panel" role="tabpanel" [attr.aria-labelledby]="'happenings-tab-' + active()">
+    <table>
+      <caption class="visually-hidden">
+        Issues and happenings across the company
+      </caption>
+      <thead class="visually-hidden">
+        <tr>
+          <th scope="col">Type</th>
+          <th scope="col">Summary</th>
+          <th scope="col">Department</th>
+          <th scope="col">Owner</th>
+          <th scope="col">Time</th>
+          <th scope="col">Open</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (row of rows(); track row.id) {
+          <tr>
+            <td>
+              <span class="status" [attr.data-kind]="row.kind">
+                <app-icon [name]="row.kind" />
+                <span class="pill" [attr.data-kind]="row.kind">{{ row.kindLabel }}</span>
+              </span>
+            </td>
+            <td>
+              <strong>{{ row.title }}</strong>
+              <span class="muted"> – {{ row.detail }}</span>
+            </td>
+            <td>
+              <span class="dept"><app-icon [name]="row.departmentIcon" />{{ row.department }}</span>
+            </td>
+            <td>{{ row.owner }}</td>
+            <td class="time">{{ row.time }}</td>
+            <td class="go"><app-icon name="chevron" /></td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="6" class="muted">Nothing to show for this filter.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>

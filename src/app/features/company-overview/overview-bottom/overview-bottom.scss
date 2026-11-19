@@ -1,3 +1,27 @@
+@use 'breakpoints' as bp;
+
+// Cards morph into the panel and back (View Transitions API); other browsers just fade in.
+::view-transition-group(*) {
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 .overview-bottom {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+
+  .slot {
+    display: block;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+
+    @include bp.up(lg) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
 }

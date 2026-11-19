@@ -1,0 +1,71 @@
+<app-time-scrubber [days]="days()" [(index)]="day" />
+
+<div class="scroll">
+  <table>
+    <caption class="visually-hidden">
+      Revenue engines on the selected day, in
+      {{
+        data().currency
+      }}
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col" [attr.aria-sort]="ariaSort('name')">
+          <button type="button" class="sort" (click)="setSort('name')">Engine</button>
+        </th>
+        <th scope="col" [attr.aria-sort]="ariaSort('revenue')">
+          <button type="button" class="sort" (click)="setSort('revenue')">
+            Revenue ({{ data().currency }})
+          </button>
+        </th>
+        <th scope="col">Target ({{ data().currency }})</th>
+        <th scope="col" [attr.aria-sort]="ariaSort('progress')">
+          <button type="button" class="sort" (click)="setSort('progress')">Progress</button>
+        </th>
+        <th scope="col">Trend</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (row of rows(); track row.id) {
+        <tr>
+          <th scope="row">
+            <span class="name"><app-icon [name]="row.icon" />{{ row.name }}</span>
+          </th>
+          <td>{{ row.revenue | number: '1.0-0' }}</td>
+          <td>{{ row.target | number: '1.0-0' }}</td>
+          <td>
+            <span class="meter">
+              <span
+                class="bar"
+                role="progressbar"
+                [attr.aria-label]="row.name + ' progress'"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                [attr.aria-valuenow]="row.progress"
+              >
+                <span class="fill" [style.width.%]="row.progress"></span>
+              </span>
+              <span class="pct">{{ row.progress | number: '1.0-1' }}%</span>
+            </span>
+          </td>
+          <td>
+            <app-sparkline
+              [values]="row.trend"
+              [marker]="row.trend.length - 1"
+              [label]="row.name + ' revenue up to this day'"
+            />
+          </td>
+        </tr>
+      }
+    </tbody>
+    <tfoot>
+      <tr>
+        <th scope="row">Total</th>
+        <td>{{ total().revenue | number: '1.0-0' }}</td>
+        <td>{{ total().target | number: '1.0-0' }}</td>
+        <td>{{ total().progress | number: '1.0-1' }}%</td>
+        <td></td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

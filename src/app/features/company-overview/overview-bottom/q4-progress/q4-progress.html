@@ -1,0 +1,41 @@
+<section aria-labelledby="q4-title">
+  <header class="head">
+    <h2 id="q4-title">Q4 Progress</h2>
+    <button type="button" class="link" (click)="expand.emit()">
+      View Details <span aria-hidden="true">→</span>
+    </button>
+  </header>
+
+  <div class="summary">
+    <strong>Q4 Company Goals</strong>
+    <span class="overall">{{ overall() | number: '1.0-0' }}%</span>
+  </div>
+  <div
+    class="bar"
+    role="progressbar"
+    aria-label="Q4 company goals"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    [attr.aria-valuenow]="overall()"
+  >
+    <span class="fill" [style.width.%]="overall()"></span>
+  </div>
+  <p class="muted">{{ onTrackCount() }} of {{ data().goals.length }} key goals on track</p>
+
+  <ul class="goals">
+    @for (goal of data().goals; track goal.id) {
+      <li class="goal">
+        <span class="mark" [class.done]="goal.status === 'on-track'" aria-hidden="true">
+          @if (goal.status === 'on-track') {
+            ✓
+          }
+        </span>
+        <span class="label">{{ goal.label }}</span>
+        <span class="visually-hidden">{{
+          goal.status === 'on-track' ? 'On track' : 'At risk'
+        }}</span>
+        <span class="pct">{{ goal.progress }}%</span>
+      </li>
+    }
+  </ul>
+</section>

@@ -1,0 +1,151 @@
+@use 'breakpoints' as bp;
+
+:host {
+  display: block;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-block-end: var(--space-3);
+
+  h2 {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-md);
+  }
+
+  @include bp.up(md) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.muted {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  font-weight: 400;
+}
+
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.tab {
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+
+  &[aria-selected='true'] {
+    background: var(--color-text);
+    border-color: var(--color-text);
+    color: var(--color-surface);
+  }
+}
+
+.link {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+#happenings-panel {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+td {
+  padding: var(--space-2);
+  border-block-start: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.time {
+  color: var(--color-text-muted);
+  text-align: end;
+}
+
+.head-icon {
+  color: var(--color-health-healthy);
+}
+
+.status,
+.dept {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.status[data-kind='issue'],
+.status[data-kind='missed'] {
+  color: var(--color-health-alert);
+}
+
+.status[data-kind='risk'] {
+  color: var(--color-health-at-risk);
+}
+
+.status[data-kind='update'] {
+  color: var(--color-health-healthy);
+}
+
+.go {
+  color: var(--color-text-muted);
+  text-align: end;
+}
+
+.pill {
+  display: inline-block;
+  min-width: 4rem;
+  padding: 0.125rem var(--space-2);
+  border-radius: 999px;
+  background: var(--color-health-healthy-bg);
+  color: var(--color-text);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+
+  &[data-kind='issue'],
+  &[data-kind='missed'] {
+    background: var(--color-health-alert-bg);
+  }
+
+  &[data-kind='risk'] {
+    background: var(--color-health-at-risk-bg);
+  }
+}

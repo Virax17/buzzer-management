@@ -1,3 +1,67 @@
 <section class="overview-bottom" aria-label="Overview, bottom half">
-  <p>Overview, bottom half</p>
+  @if (data(); as d) {
+    @if (details(); as x) {
+      @if (view(); as v) {
+        <div class="slot" [style.view-transition-name]="'sec-' + v">
+          @switch (v) {
+            @case ('organigram') {
+              <app-expanded-panel
+                heading="Organigram"
+                subtitle="Who leads the company and how each department is made up"
+                (closed)="open(null)"
+              >
+                <app-organigram-explorer [data]="d.organigram" [teams]="x.teams" />
+              </app-expanded-panel>
+            }
+            @case ('q4') {
+              <app-expanded-panel
+                heading="Q4 Progress"
+                subtitle="All company goals, with their history"
+                (closed)="open(null)"
+              >
+                <app-q4-details [data]="d.q4" [history]="x.goalHistory" [days]="x.days" />
+              </app-expanded-panel>
+            }
+            @case ('engines') {
+              <app-expanded-panel
+                heading="Revenue Engines"
+                subtitle="Revenue and progress towards target, day by day"
+                (closed)="open(null)"
+              >
+                <app-engines-details
+                  [data]="d.revenueEngines"
+                  [history]="x.engineHistory"
+                  [days]="x.days"
+                />
+              </app-expanded-panel>
+            }
+            @case ('issues') {
+              <app-expanded-panel
+                heading="Issues & Happenings"
+                subtitle="Every update, missed target and risk. Filter by dragging chips, or scrub through the days."
+                (closed)="open(null)"
+              >
+                <app-issues-details [items]="x.issues" [days]="x.days" />
+              </app-expanded-panel>
+            }
+          }
+        </div>
+      } @else {
+        <div class="row">
+          <div class="slot" [style.view-transition-name]="'sec-organigram'">
+            <app-organigram-preview [data]="d.organigram" (expand)="open('organigram')" />
+          </div>
+          <div class="slot" [style.view-transition-name]="'sec-q4'">
+            <app-q4-progress [data]="d.q4" (expand)="open('q4')" />
+          </div>
+          <div class="slot" [style.view-transition-name]="'sec-engines'">
+            <app-revenue-engines-list [data]="d.revenueEngines" (expand)="open('engines')" />
+          </div>
+        </div>
+        <div class="slot" [style.view-transition-name]="'sec-issues'">
+          <app-issues-happenings [items]="d.happenings.items" (expand)="open('issues')" />
+        </div>
+      }
+    }
+  }
 </section>

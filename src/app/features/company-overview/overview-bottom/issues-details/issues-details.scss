@@ -1,0 +1,156 @@
+@use 'breakpoints' as bp;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.muted {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.top {
+  display: grid;
+  gap: var(--space-3);
+
+  @include bp.up(md) {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+  }
+}
+
+.search input {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-surface-muted);
+  color: var(--color-text);
+}
+
+.history,
+.tray {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.chip {
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-surface-muted);
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+  cursor: grab;
+
+  &[aria-pressed='true'] {
+    border-color: var(--color-brand);
+  }
+
+  &.on {
+    background: var(--color-brand);
+    border-color: var(--color-brand);
+    color: var(--color-brand-contrast);
+    cursor: pointer;
+  }
+}
+
+.zone {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 3.5rem;
+  padding: var(--space-3);
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+
+  &.over {
+    border-color: var(--color-brand);
+    background: var(--color-surface-muted);
+  }
+}
+
+.clear,
+.more {
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+}
+
+.more {
+  align-self: center;
+}
+
+.count {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.scroll {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+td {
+  padding: var(--space-2);
+  border-block-start: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.status,
+.dept {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.status[data-kind='issue'],
+.status[data-kind='missed'] {
+  color: var(--color-health-alert);
+}
+
+.status[data-kind='risk'] {
+  color: var(--color-health-at-risk);
+}
+
+.status[data-kind='update'] {
+  color: var(--color-health-healthy);
+}
+
+.pill {
+  min-width: 4rem;
+  padding: 0.125rem var(--space-2);
+  border-radius: 999px;
+  background: var(--color-health-healthy-bg);
+  color: var(--color-text);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+
+  &[data-kind='issue'],
+  &[data-kind='missed'] {
+    background: var(--color-health-alert-bg);
+  }
+
+  &[data-kind='risk'] {
+    background: var(--color-health-at-risk-bg);
+  }
+}

@@ -1,0 +1,106 @@
+<div class="top">
+  <label class="search">
+    <span class="visually-hidden">Search issues</span>
+    <input
+      type="search"
+      placeholder="Search title, detail or owner"
+      [value]="query()"
+      (input)="onSearch($event)"
+    />
+  </label>
+  <app-time-scrubber [days]="days()" [(index)]="day" />
+</div>
+
+<div class="history">
+  <span class="muted">Items logged per day</span>
+  <app-sparkline
+    [values]="perDay()"
+    [marker]="day()"
+    label="Number of items logged on each day of the month"
+  />
+</div>
+
+<div class="tray" role="group" aria-label="Filter chips">
+  <span class="muted">Drag a chip into the box, or click it:</span>
+  @for (chip of chips(); track chip.token) {
+    <button
+      type="button"
+      class="chip"
+      draggable="true"
+      [attr.aria-pressed]="chip.active"
+      (click)="toggle(chip.token)"
+      (dragstart)="onDragStart($event, chip.token)"
+    >
+      {{ chip.label }}
+    </button>
+  }
+</div>
+
+<div
+  class="zone"
+  [class.over]="dragOver()"
+  aria-live="polite"
+  (dragover)="onDragOver($event)"
+  (dragleave)="dragOver.set(false)"
+  (drop)="onDrop($event)"
+>
+  @if (activeChips().length === 0) {
+    <span class="muted">Drop filters here. Showing everything.</span>
+  } @else {
+    @for (chip of activeChips(); track chip.token) {
+      <button type="button" class="chip on" (click)="toggle(chip.token)">
+        {{ chip.label }} <span aria-hidden="true">✕</span
+        ><span class="visually-hidden">remove filter</span>
+      </button>
+    }
+    <button type="button" class="clear" (click)="clearAll()">Clear all</button>
+  }
+</div>
+
+<p class="count" aria-live="polite">Showing {{ shown().length }} of {{ visible().length }}</p>
+
+<div class="scroll">
+  <table>
+    <caption class="visually-hidden">
+      Issues and happenings up to the selected day
+    </caption>
+    <thead class="visually-hidden">
+      <tr>
+        <th scope="col">Type</th>
+        <th scope="col">Summary</th>
+        <th scope="col">Department</th>
+        <th scope="col">Owner</th>
+        <th scope="col">When</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (row of shown(); track row.id) {
+        <tr>
+          <td>
+            <span class="status" [attr.data-kind]="row.kind">
+              <app-icon [name]="row.kind" />
+              <span class="pill" [attr.data-kind]="row.kind">{{ row.kindLabel }}</span>
+            </span>
+          </td>
+          <td>
+            <strong>{{ row.title }}</strong>
+            <span class="muted"> – {{ row.detail }}</span>
+          </td>
+          <td>
+            <span class="dept"><app-icon [name]="row.departmentIcon" />{{ row.department }}</span>
+          </td>
+          <td>{{ row.owner }}</td>
+          <td class="muted">{{ row.time }}</td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="5" class="muted">Nothing matches these filters on this day.</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+@if (visible().length > shown().length) {
+  <button type="button" class="more" (click)="showMore()">Show more</button>
+}

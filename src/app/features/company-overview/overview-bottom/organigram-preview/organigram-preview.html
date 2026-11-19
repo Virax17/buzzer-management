@@ -1,0 +1,40 @@
+<section aria-labelledby="organigram-title">
+  <header class="head">
+    <h2 id="organigram-title">
+      <svg class="logo" viewBox="0 0 33 34" aria-hidden="true" focusable="false">
+        <path
+          class="logo-body"
+          d="M30.2548 13.8562C28.9818 15.2156 27.4594 16.1218 25.6801 16.5712C27.3291 16.9869 28.5947 17.7808 29.4657 18.9492C30.3404 20.1176 30.7759 21.4883 30.7759 23.0536C30.7759 23.5667 30.7275 24.1097 30.6345 24.6864C30.1245 27.6636 28.751 29.963 26.5139 31.577C24.2768 33.1948 21.3287 34 17.6772 34H0L5.95567 0H23.1564C26.2049 0 28.5798 0.599185 30.2809 1.8013C31.9782 3.00341 32.8306 4.75603 32.8306 7.05915C32.8306 7.6059 32.7822 8.19385 32.6892 8.83798C32.3393 10.8228 31.5316 12.4968 30.2585 13.8562H30.2548Z"
+        />
+        <path
+          class="logo-bolt"
+          d="M12.8382 27.3228L14.2638 18.9567H7.61206L17.2975 6.7558L15.8942 15.0208H22.4752L12.8419 27.3228H12.8382Z"
+        />
+      </svg>
+      Organigram <span class="muted">(Preview)</span>
+    </h2>
+    <button type="button" class="link" (click)="expand.emit()">
+      View Full <span aria-hidden="true">→</span>
+    </button>
+  </header>
+
+  <div class="tree">
+    <div class="lead">
+      <span class="avatar" aria-hidden="true">{{ initials(data().lead.name) }}</span>
+      <strong>{{ data().lead.name }}</strong>
+      <span class="muted">{{ data().lead.title }}</span>
+    </div>
+    <div class="connector" aria-hidden="true"></div>
+    <ul class="departments" [style.--cols]="data().departments.length">
+      @for (dept of data().departments; track dept.id) {
+        <li class="dept">
+          <app-icon class="dept-icon" [name]="dept.icon" />
+          <span class="dept-name">{{ dept.name }}</span>
+          <span class="dept-count"
+            ><span class="visually-hidden">Headcount: </span>{{ dept.headcount }}</span
+          >
+        </li>
+      }
+    </ul>
+  </div>
+</section>

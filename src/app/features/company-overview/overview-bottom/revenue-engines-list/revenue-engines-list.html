@@ -1,0 +1,32 @@
+<section aria-labelledby="engines-title">
+  <header class="head">
+    <h2 id="engines-title">Revenue Engines</h2>
+    <button type="button" class="link" (click)="expand.emit()">
+      View All <span aria-hidden="true">→</span>
+    </button>
+  </header>
+
+  <ul class="list">
+    @for (row of rows(); track row.id) {
+      <li class="row">
+        <span class="tile" [attr.data-tone]="row.tone"><app-icon [name]="row.icon" /></span>
+        <span class="info">
+          <strong>{{ row.name }}</strong>
+          <span class="muted">{{ row.amounts }}</span>
+        </span>
+        <span
+          class="bar"
+          role="progressbar"
+          [attr.aria-label]="row.name + ' progress'"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          [attr.aria-valuenow]="row.progress"
+        >
+          <span class="fill" [style.width.%]="row.progress"></span>
+        </span>
+        <span class="pct">{{ row.progress | number: '1.0-1' }}%</span>
+        <app-icon class="chev" name="chevron" />
+      </li>
+    }
+  </ul>
+</section>
