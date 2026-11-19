@@ -1,0 +1,23 @@
+# Repo content is LF; checkouts get LF on every OS.
+* text=auto eol=lf
+
+# Binary: never converted
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.avif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.eot binary
+*.zip binary
+*.gz binary
+*.tgz binary
+*.pdf binary
+*.mp3 binary
+*.mp4 binary
+*.shortcut binary

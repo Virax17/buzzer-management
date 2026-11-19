@@ -1,0 +1,149 @@
+// Design tokens, exposed as CSS custom properties so components read them at runtime
+// (`var(--color-surface)`). Add new tokens here — never hard-code colors in components.
+
+@mixin light {
+  --color-bg: #f7f8fa;
+  --color-surface: #fff;
+  --color-surface-muted: #f0f2f5;
+  --color-border: #dde1e7;
+  --color-text: #1b1f24;
+  --color-text-muted: #59636e;
+  --color-primary: #3b5bdb;
+  --color-primary-contrast: #fff;
+  --color-danger: #c92a2a;
+  --color-warning: #b35900;
+
+  // Q4 Goal Tracker health levels (text/edge + tinted background), AA on their background.
+  --color-health-healthy: #2b8a3e;
+  --color-health-healthy-bg: #ebfbee;
+  --color-health-at-risk: #866000;
+  --color-health-at-risk-bg: #fff9db;
+  --color-health-high-risk: #a94f00;
+  --color-health-high-risk-bg: #fff0e0;
+  --color-health-alert: #c92a2a;
+  --color-health-alert-bg: #fff0f0;
+  --color-health-alert-deep: #8b0f14;
+
+  // Bleeding Alert cards: real blood, the same in both themes (decorative, never text).
+  --color-blood: #8a0303;
+  --color-blood-deep: #3d0000;
+  --color-blood-shine: #e0444b;
+
+  // Late/missing daily report cards (/warnings): referee cards, decorative (text says it).
+  --color-card-yellow: #f5c400;
+  --color-card-red: #d62828;
+
+  // Chart series, categorical, in this order (validated for colorblind separation and 3:1 on
+  // the surface in both themes): 1 = Open, 2 = Resolved on the /warnings card charts.
+  --color-series-1: #2a78d6;
+  --color-series-2: #eb6834;
+}
+
+@mixin dark {
+  --color-bg: #0f1115;
+  --color-surface: #171a21;
+  --color-surface-muted: #1f232b;
+  --color-border: #2c313a;
+  --color-text: #e6e8eb;
+  --color-text-muted: #9aa4b1;
+  --color-primary: #748ffc;
+  --color-primary-contrast: #0f1115;
+  --color-danger: #ff8787;
+  --color-warning: #ffa94d;
+  --color-health-healthy: #69db7c;
+  --color-health-healthy-bg: rgb(105 219 124 / 14%);
+  --color-health-at-risk: #ffd43b;
+  --color-health-at-risk-bg: rgb(255 212 59 / 14%);
+  --color-health-high-risk: #ffa94d;
+  --color-health-high-risk-bg: rgb(255 169 77 / 14%);
+  --color-health-alert: #ff8787;
+  --color-health-alert-bg: rgb(255 135 135 / 14%);
+  --color-health-alert-deep: #b3121c;
+
+  // Bleeding Alert cards: real blood, the same in both themes (decorative, never text).
+  --color-blood: #8a0303;
+  --color-blood-deep: #3d0000;
+  --color-blood-shine: #e0444b;
+  --color-card-yellow: #ffd43b;
+  --color-card-red: #ff4d4d;
+  --color-series-1: #3987e5;
+  --color-series-2: #d95926;
+}
+
+// Team map (Figma "Buzzer Website" → Q4 Team Map). Brand colors, identical in light and dark mode:
+// the board keeps the design's light canvas.
+@mixin team-map {
+  --font-brand: 'Poppins', var(--font-sans);
+  --tm-board: #fff;
+  --tm-panel: rgb(228 237 246 / 50%);
+  --tm-card-root: #000;
+  --tm-card-dark: #131515;
+  --tm-card-slate: #394756;
+  --tm-on-card: #fff;
+  --tm-project: #ffb414;
+  --tm-project-text: #131515;
+  --tm-muted-fill: rgb(255 255 255 / 16%);
+  --tm-muted-text: rgb(255 255 255 / 40%);
+  --tm-line-black: #000;
+  --tm-line-blue: #1c43e1;
+  --tm-line-grey: #a4b4c5;
+  --tm-provider-bg: #fff;
+  --tm-provider-border: #e4edf6;
+  --tm-provider-shadow: rgb(228 237 246 / 80%);
+  --tm-provider-kind: rgb(0 0 0 / 60%);
+  --tm-provider-name: #131515;
+  --tm-provider-desc: #3d6b65;
+  --tm-badge-on-root: rgb(46 211 104 / 60%);
+  --tm-badge-on: rgb(20 236 96 / 32%);
+  --tm-badge-on-label: #74ffa5;
+  --tm-badge-off: rgb(255 0 42 / 32%);
+  --tm-badge-off-label: #ffa0b0;
+  --tm-badge-risk: rgb(255 150 75 / 32%);
+  --tm-badge-risk-label: #ffd3a0;
+  --tm-badge-daily: rgb(40 198 255 / 32%);
+  --tm-badge-daily-label: #b5ebff;
+
+  // Badge error state: not as the README defines it — the team must fix it (not a health colour).
+  --tm-badge-error: rgb(181 108 255 / 22%);
+  --tm-badge-error-edge: #b56cff;
+  --tm-badge-error-label: #e7d0ff;
+
+  // Burning card (Off Track / missed daily): ember edge and its glow.
+  --tm-fire: #ff6a1a;
+  --tm-fire-glow: rgb(255 106 26 / 55%);
+  --tm-issue-glow: rgb(239 68 68 / 50%);
+
+  // Alert badges (pulsing): the colours of the card's Lottie signs — issue red / warning orange.
+  --tm-alert-fire: #ef4444;
+  --tm-alert-fire-glow: rgb(239 68 68 / 90%);
+  --tm-alert-fire-text: #fff;
+  --tm-alert-warning: #ffb700;
+  --tm-alert-warning-glow: rgb(255 183 0 / 70%);
+  --tm-alert-warning-text: #131515;
+}
+
+@mixin root {
+  @include light;
+  @include team-map;
+
+  --font-sans: system-ui, -apple-system, 'Segoe UI', roboto, sans-serif;
+  --font-mono: ui-monospace, sfmono-regular, menlo, monospace;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+
+  color-scheme: light dark;
+
+  @media (prefers-color-scheme: dark) {
+    @include dark;
+  }
+}

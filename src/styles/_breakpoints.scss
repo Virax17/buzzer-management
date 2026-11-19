@@ -1,0 +1,18 @@
+// Usage in a component stylesheet:
+//   @use 'breakpoints' as bp;
+//   @include bp.up(md) { ... }
+
+@use 'sass:map';
+
+$breakpoints: (
+  sm: 640px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px,
+);
+
+@mixin up($name) {
+  @media (width >= map.get($breakpoints, $name)) {
+    @content;
+  }
+}

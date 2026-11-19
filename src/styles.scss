@@ -1,0 +1,54 @@
+// Global styles only: tokens, reset, element defaults.
+// Component styles belong in the component's own .scss file.
+@use 'tokens';
+
+:root {
+  @include tokens.root;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+}
+
+// The document is the app's only scroll container (see Shell); anchor jumps clear the
+// sticky header.
+html {
+  scroll-padding-top: var(--app-header-height, 0);
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-md);
+  line-height: 1.5;
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+  margin: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
