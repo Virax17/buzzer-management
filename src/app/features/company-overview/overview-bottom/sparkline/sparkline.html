@@ -1,0 +1,6 @@
+<svg [attr.viewBox]="'0 0 ' + width + ' ' + height" role="img" [attr.aria-label]="label()">
+  <polyline [attr.points]="points()" />
+  @if (dot(); as d) {
+    <circle [attr.cx]="d.x" [attr.cy]="d.y" r="3" />
+  }
+</svg>

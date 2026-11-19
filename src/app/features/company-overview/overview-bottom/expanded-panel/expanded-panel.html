@@ -1,0 +1,17 @@
+<section class="panel" aria-labelledby="panel-title">
+  <header class="head">
+    <button #backButton type="button" class="back" (click)="closed.emit()">
+      <app-icon class="back-icon" name="chevron" />
+      Back to overview
+    </button>
+    <div class="titles">
+      <h2 id="panel-title">{{ heading() }}</h2>
+      @if (subtitle()) {
+        <p class="subtitle">{{ subtitle() }}</p>
+      }
+    </div>
+  </header>
+  <div class="body">
+    <ng-content />
+  </div>
+</section>

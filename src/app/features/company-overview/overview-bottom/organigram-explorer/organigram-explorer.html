@@ -1,0 +1,56 @@
+<nav class="crumbs" aria-label="Organigram level">
+  @if (focusedDepartment(); as dept) {
+    <button type="button" class="crumb" (click)="up()">Company</button>
+    <span aria-hidden="true">›</span>
+    <span aria-current="page">{{ dept.name }}</span>
+  } @else {
+    <span aria-current="page">Company</span>
+    <span class="muted">Click a department to look inside</span>
+  }
+</nav>
+
+<div class="tree">
+  <div class="node" [attr.data-level]="focus() ?? 'company'">
+    @if (node().icon; as icon) {
+      <app-icon class="node-icon" [name]="icon" />
+    } @else {
+      <span class="avatar" aria-hidden="true">AM</span>
+    }
+    <strong>{{ node().name }}</strong>
+    <span class="muted">{{ node().note }}</span>
+  </div>
+
+  <div class="stem" aria-hidden="true"></div>
+
+  <ul class="children" [style.--cols]="children().length">
+    @for (child of children(); track child.id; let i = $index) {
+      <li class="child" [style.--i]="i">
+        @if (focus() === null) {
+          <button type="button" class="card action" (click)="open(child.id)">
+            @if (child.icon; as icon) {
+              <app-icon class="card-icon" [name]="icon" />
+            }
+            <strong>{{ child.name }}</strong>
+            <span class="count"
+              ><span class="visually-hidden">Headcount: </span>{{ child.headcount }}</span
+            >
+            <span class="muted">{{ child.note }}</span>
+          </button>
+        } @else {
+          <div class="card">
+            <strong>{{ child.name }}</strong>
+            <span class="count"
+              ><span class="visually-hidden">Headcount: </span>{{ child.headcount }}</span
+            >
+            <span class="muted">{{ child.note }}</span>
+          </div>
+        }
+      </li>
+    }
+  </ul>
+
+  <p class="total">
+    {{ total() }} people across {{ children().length }}
+    {{ focus() === null ? 'departments' : 'teams' }}
+  </p>
+</div>

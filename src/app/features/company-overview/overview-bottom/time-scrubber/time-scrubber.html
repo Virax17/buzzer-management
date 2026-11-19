@@ -1,0 +1,21 @@
+<div class="scrubber">
+  <button
+    type="button"
+    class="play"
+    [attr.aria-label]="playing() ? 'Pause history' : 'Play history'"
+    (click)="toggle()"
+  >
+    {{ playing() ? '❚❚' : '▶' }}
+  </button>
+  <input
+    type="range"
+    min="0"
+    step="1"
+    aria-label="Day of history"
+    [max]="last()"
+    [value]="index()"
+    [attr.aria-valuetext]="label()"
+    (input)="onInput($event)"
+  />
+  <output class="date">{{ label() }}</output>
+</div>
