@@ -23,7 +23,7 @@
       @for (row of rows(); track row.id) {
         <tr>
           <th scope="row">{{ row.label }}</th>
-          <td>
+          <td data-label="Progress">
             <span class="meter">
               <span
                 class="bar"
@@ -38,15 +38,17 @@
               <span class="pct">{{ row.value | number: '1.0-1' }}%</span>
             </span>
           </td>
-          <td>{{ row.change >= 0 ? '+' : '' }}{{ row.change | number: '1.0-1' }} pts</td>
-          <td>
+          <td data-label="Change that day">
+            {{ row.change >= 0 ? '+' : '' }}{{ row.change | number: '1.0-1' }} pts
+          </td>
+          <td data-label="Trend">
             <app-sparkline
               [values]="row.trend"
               [marker]="row.trend.length - 1"
               [label]="row.label + ' progress up to this day'"
             />
           </td>
-          <td>
+          <td data-label="Status today">
             @if (isToday()) {
               <span class="badge" [attr.data-status]="row.status">{{ row.statusLabel }}</span>
             } @else {

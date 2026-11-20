@@ -149,3 +149,32 @@ td {
     background: var(--color-health-at-risk-bg);
   }
 }
+
+// Phones: each row becomes a small card instead of a sideways-scrolling table.
+@media (width < 48rem) {
+  table,
+  tbody,
+  tr,
+  td {
+    display: block;
+  }
+
+  tr {
+    padding: var(--space-2) 0;
+    border-block-start: 1px solid var(--color-border);
+  }
+
+  td {
+    padding: var(--space-1) 0;
+    border: 0;
+    white-space: normal;
+  }
+
+  .time {
+    text-align: start;
+  }
+
+  .go {
+    display: none;
+  }
+}
