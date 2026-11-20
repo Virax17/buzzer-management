@@ -1,3 +1,5 @@
+import { type ThemeChoice } from './theme';
+
 /** Static sample data for the top bar (no backend in this task). */
 
 export interface NavItem {
@@ -26,3 +28,14 @@ export const TOP_BAR_DATA: TopBarData = {
   unreadNotifications: 1,
   userName: 'Vinay Patil',
 };
+
+export interface ThemeOption {
+  readonly id: ThemeChoice;
+  readonly label: string;
+}
+
+export const THEME_OPTIONS: readonly ThemeOption[] = [
+  { id: 'light', label: 'Light mode' },
+  { id: 'dark', label: 'Dark mode' },
+  { id: 'system', label: 'Match system' },
+];

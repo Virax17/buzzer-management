@@ -6,6 +6,19 @@
   @include tokens.root;
 }
 
+// The Settings menu can force a theme; otherwise the system setting decides (see tokens).
+:root[data-theme='light'] {
+  @include tokens.light;
+
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  @include tokens.dark;
+
+  color-scheme: dark;
+}
+
 *,
 *::before,
 *::after {
